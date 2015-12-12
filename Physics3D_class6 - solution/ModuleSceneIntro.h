@@ -23,6 +23,6 @@ public:
 
 public:
 	Cube s;
-	Cube c;
+	p2List<Cube> circuit;
 	PhysBody3D* sensor;
 };
