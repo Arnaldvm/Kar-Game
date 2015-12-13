@@ -37,15 +37,15 @@ bool ModuleSceneIntro::Start()
 
 	// Curve 1
 	Cube c11(1, 5, 10);
-	c11.SetPos(4, 2.5f, 55);
+	c11.SetPos(-8.5, 2.5f, 55);
 	c11.SetRotation(-30, vec3(0, 1, 0));
 	circuit.add(c11);
 	Cube c12(1,5,10);
-	c12.SetPos(-2.75f, 2.5f, 62.25f);
+	c12.SetPos(-15.25f, 2.5f, 62.25f);
 	c12.SetRotation(-60, vec3(0, 1, 0));
 	circuit.add(c12);
 	Cube c13(1, 5, 10);
-	c13.SetPos(-12.5f, 2.5f, 65);
+	c13.SetPos(-25.0f, 2.5f, 65);
 	c13.SetRotation(-90, vec3(0, 1, 0));
 	circuit.add(c13);
 	
