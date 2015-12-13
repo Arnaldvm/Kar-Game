@@ -48,11 +48,43 @@ bool ModuleSceneIntro::Start()
 	c13.SetPos(-25.0f, 2.5f, 65);
 	c13.SetRotation(-90, vec3(0, 1, 0));
 	circuit.add(c13);
-	
-	
+	//---------
+	Cube c14(1, 5, 10);
+	c14.SetPos(5, 2.5f, 55);
+	c14.SetRotation(-15, vec3(0, 1, 0));
+	circuit.add(c14);
+	Cube c15(1, 5, 10);
+	c15.SetPos(1.25f, 2.5f, 64.5f);
+	c15.SetRotation(-30, vec3(0, 1, 0));
+	circuit.add(c15);
+	Cube c16(1, 5, 10);
+	c16.SetPos(-4.75f, 2.5f, 72.75f);
+	c16.SetRotation(-45, vec3(0, 1, 0));
+	circuit.add(c16);
+	Cube c17(1, 5, 10);
+	c17.SetPos(-12.5, 2.5f, 79);
+	c17.SetRotation(-60, vec3(0, 1, 0));
+	circuit.add(c17);
+	Cube c18(1, 5, 10);
+	c18.SetPos(-21.5f, 2.5f, 83);
+	c18.SetRotation(-75, vec3(0, 1, 0));
+	circuit.add(c18);
+	Cube c19(1, 5, 10);
+	c19.SetPos(-31.25f, 2.5f, 84.25f);
+	c19.SetRotation(-90, vec3(0, 1, 0));
+	circuit.add(c19);
 
 
 	// Straight 1
+	Cube s11(1, 5, 40);
+	s11.SetPos(-56.25f, 2.5f, 84.25);
+	s11.SetRotation(-90, vec3(0, 1, 0));
+	circuit.add(s11);
+	Cube s12(1, 5, 45.5);
+	s12.SetPos(-53, 2.5f, 65);
+	s12.SetRotation(-90, vec3(0, 1, 0));
+	circuit.add(s12);
+
 
 	// Curve 2
 
