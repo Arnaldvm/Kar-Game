@@ -38,7 +38,7 @@ void PhysVehicle3D::Render()
 		wheel.Render();
 	}
 
-	Cube chassis(info.chassis_size.x, info.chassis_size.y, info.chassis_size.z);
+	Cube chassis(info.chassis_size.x, info.chassis_size.y, info.chassis_size.z);	
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&chassis.transform);
 	btQuaternion q = vehicle->getChassisWorldTransform().getRotation();
 	btVector3 offset(info.chassis_offset.x, info.chassis_offset.y, info.chassis_offset.z);
@@ -97,6 +97,7 @@ float PhysVehicle3D::GetKmh() const
 vec3 PhysVehicle3D::getPos(){
 	btTransform t = vehicle->getRigidBody()->getWorldTransform();
 	btVector3 v = t.getOrigin();
-	vec3 ret; ret.Set(v.getX(), v.getY(), v.getZ());
+	vec3 ret; 
+	ret.Set(v.getX(), v.getY(), v.getZ());
 	return ret; 
 }
