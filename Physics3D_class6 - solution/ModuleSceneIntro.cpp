@@ -25,6 +25,9 @@ bool ModuleSceneIntro::Start()
 	//s.SetPos(0, 0.5f, 20);
 	//c.size = vec3(5, 1, 3);
 	//c.SetPos(0, 3, 20);
+	ground.size.x = ground.size.z = 1000;
+	ground.size.y = 1;
+	ground.SetPos(0, -1, 0);
 
 	//FL
 	Cube fl1(1, 5, 100);
@@ -150,13 +153,50 @@ bool ModuleSceneIntro::Start()
 
 
 	// Straight 3
-	Cube s31(1, 5, 15);
-	s31.SetPos(-62.25f, 2.5f, 7.75f);
+	Cube s31(1, 5, 50);
+	s31.SetPos(-62.25f, 2.5f, 25.25f);
 	circuit.add(s31);
-	Cube s32(1, 12, 15);
-	s32.SetPos(-56.25f, 2.5f, 7.75f);
-	s32.SetRotation(90, vec3(1, 0,1));
+
+	Cube s32(12, 1, 35);
+	s32.SetPos(-55.75f, 2, 47.75f);
+	s32.SetRotation(-42, vec3(1, 0,0));
 	circuit.add(s32);
+	Cube s33(12, 1, 25);
+	s33.SetPos(-55.75f, 13.5, 73);
+	circuit.add(s33);
+	Cube s34(12, 1, 35);
+	s34.SetPos(-55.75f, 2, 98);
+	s34.SetRotation(42, vec3(1, 0, 0));
+	circuit.add(s34);
+
+	Cube s35(1, 5, 50);
+	s35.SetPos(-49.25f, 2.5f, 25.25f);
+	circuit.add(s35);
+
+	Cube s36(1, 5, 35);
+	s36.SetPos(-62.25f, 5, 47.75f);
+	s36.SetRotation(-42, vec3(1, 0, 0));
+	circuit.add(s36);
+	Cube s37(1, 5, 35);
+	s37.SetPos(-49.25f, 5, 47.75f);
+	s37.SetRotation(-42, vec3(1, 0, 0));
+	circuit.add(s37);
+
+	Cube s38(1, 5, 25);
+	s38.SetPos(-49.25f, 16.5f, 73);
+	circuit.add(s38);
+	Cube s39(1, 5, 25);
+	s39.SetPos(-62.25f, 16.5f, 73);
+	circuit.add(s39);
+	//INVISIBLE	
+	Cube s310(1, 40, 40);
+	s310.SetPos(-62.25f, 26.5f, 85);
+	Cube s311(1, 40, 40);
+	s311.SetPos(-49.25f, 26.5f, 85);
+	App->physics->AddBody(s310, 0.0f);
+	App->physics->AddBody(s311, 0.0f);
+
+
 
 
 	// Curve 4
@@ -204,9 +244,7 @@ bool ModuleSceneIntro::CleanUp()
 // Update
 update_status ModuleSceneIntro::Update(float dt)
 {
-	Plane p(0, 1, 0, 0);
-	p.axis = true;
-	p.Render();
+	ground.Render();
 
 	//sensor->GetTransform(&s.transform);
 	//s.Render();
