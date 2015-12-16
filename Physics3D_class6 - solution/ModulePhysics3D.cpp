@@ -288,6 +288,58 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 	btTransform startTransform;
 	startTransform.setIdentity();
 
+	//TESTING ---
+	// backchasis
+	btCollisionShape* colShape2 = new btBoxShape(btVector3(info.chassis_size.x - 0.9f, info.chassis_size.y, info.chassis_size.z - 1.8f));
+	shapes.add(colShape2);
+
+	btTransform trans2;
+	trans2.setIdentity();
+	trans2.setOrigin(btVector3(info.chassis_offset.x, info.chassis_offset.y - 0.2f, info.chassis_offset.z - 2.2f));
+
+	comShape->addChildShape(trans2, colShape2);
+
+	// frontchasis
+	btCollisionShape* colShape3 = new btBoxShape(btVector3(info.chassis_size.x - 0.9f, info.chassis_size.y, info.chassis_size.z - 1.8f));
+	shapes.add(colShape3);
+
+	btTransform trans3;
+	trans3.setIdentity();
+	trans3.setOrigin(btVector3(info.chassis_offset.x, info.chassis_offset.y - 0.2f, info.chassis_offset.z + 2.2f));
+
+	comShape->addChildShape(trans3, colShape3);
+
+	//leftchasis
+	btCollisionShape* colShape4 = new btBoxShape(btVector3(info.chassis_size.x - 1.90f, info.chassis_size.y, info.chassis_size.z - 0.6f));
+	shapes.add(colShape4);
+
+	btTransform trans4;
+	trans4.setIdentity();
+	trans4.setOrigin(btVector3(info.chassis_offset.x + 1.7f, info.chassis_offset.y - 0.2f, info.chassis_offset.z));
+
+	comShape->addChildShape(trans4, colShape4);
+
+	//rightchasis
+	btCollisionShape* colShape5 = new btBoxShape(btVector3(info.chassis_size.x - 1.90f, info.chassis_size.y, info.chassis_size.z - 0.6f));
+	shapes.add(colShape5);
+
+	btTransform trans5;
+	trans5.setIdentity();
+	trans5.setOrigin(btVector3(info.chassis_offset.x - 1.7f, info.chassis_offset.y - 0.2f, info.chassis_offset.z));
+
+	comShape->addChildShape(trans5, colShape5);
+
+	//sitchassis
+	btCollisionShape* colShape6 = new btBoxShape(btVector3(info.chassis_size.x - 1.10f, info.chassis_size.y + 0.7f, info.chassis_size.z - 1.9f));
+	shapes.add(colShape6);
+
+	btTransform trans6;
+	trans6.setIdentity();
+	trans6.setOrigin(btVector3(info.chassis_offset.x, info.chassis_offset.y + 0.9f, info.chassis_offset.z - 1.1f));
+
+	comShape->addChildShape(trans6, colShape6);
+
+
 	btVector3 localInertia(0, 0, 0);
 	comShape->calculateLocalInertia(info.mass, localInertia);
 

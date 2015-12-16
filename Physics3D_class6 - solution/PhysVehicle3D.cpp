@@ -49,7 +49,7 @@ void PhysVehicle3D::Render()
 	chassis.transform.M[13] += offset.getY();
 	chassis.transform.M[14] += offset.getZ();
 	
-	//TESTING
+	//TESTING ----
 	Cube frontchassis(info.chassis_size.x + 0.1f, info.chassis_size.y + 0.1f, info.chassis_size.z - 1.5f);
 	frontchassis.color = Red;
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&frontchassis.transform);
