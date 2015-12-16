@@ -25,4 +25,5 @@ public:
 	Cube ground;
 	p2List<Cube> circuit;
 	PhysBody3D* sensor;
+	uint fx_hit;
 };

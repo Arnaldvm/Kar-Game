@@ -19,6 +19,7 @@ bool ModulePlayer::Start()
 	LOG("Loading player");
 
 	VehicleInfo car;
+	fx_breaks = App->audio->LoadFx("Game/audio/breaks.wav");
 
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(2, 0.25f, 2);
@@ -155,6 +156,7 @@ update_status ModulePlayer::Update(float dt)
 	if (App->input->GetKey(SDL_SCANCODE_SPACE) == KEY_REPEAT)
 	{
 		brake = BRAKE_POWER;
+		App->audio->PlayFx(fx_breaks, 0);
 	}
 
 	vehicle->ApplyEngineForce(acceleration);
