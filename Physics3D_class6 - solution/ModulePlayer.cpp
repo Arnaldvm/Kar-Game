@@ -24,7 +24,7 @@ bool ModulePlayer::Start()
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(2, 0.25f, 2);
 	car.chassis_offset.Set(0, 0.30f, 0);
-	car.mass = 500.0f;
+	car.mass = 1000.0f;
 	car.suspensionStiffness = 15.88f;
 	car.suspensionCompression = 0.83f;
 	car.suspensionDamping = 0.88f;
@@ -114,10 +114,9 @@ bool ModulePlayer::CleanUp()
 }
 
 // Update: draw background
-update_status ModulePlayer::Update(float dt)
-{
-	
-	/*float speed_cam = 0.09f;
+update_status ModulePlayer::Update(float dt) {
+
+	float speed_cam = 0.09f;
 	vec3 p = vehicle->getPos();
 	btVector3 vehicle_vector = vehicle->vehicle->getForwardVector();
 	vec3 f(vehicle_vector.getX(), vehicle_vector.getY(), vehicle_vector.getZ());
@@ -128,7 +127,7 @@ update_status ModulePlayer::Update(float dt)
 	vec3 reference(p.x, p.y, p.z);
 
 	App->camera->Look(App->camera->Position + (speed_cam * speed_camera), reference);
-	*/
+	
 	turn = acceleration = brake = 0.0f;
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -158,6 +157,10 @@ update_status ModulePlayer::Update(float dt)
 		brake = BRAKE_POWER;
 		App->audio->PlayFx(fx_breaks, 0);
 	}
+	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN){
+		Respawn();
+	}
+
 
 	vehicle->ApplyEngineForce(acceleration);
 	vehicle->Turn(turn);
@@ -167,11 +170,18 @@ update_status ModulePlayer::Update(float dt)
 	vehicle->Render();
 
 	char title[80];
-	sprintf_s(title, "%.1f Km/h", vehicle->GetKmh());
+	sprintf_s(title, "%.1f Km/h | Laps: %d", vehicle->GetKmh(), lap);
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
 }
 
+void ModulePlayer::Respawn(){
+	vec3 position = vehicle->getPos();
+	vehicle->SetTransform(NULL);
+	vehicle->SetPos(position.x, 2, position.z);
+	LOG("REspawn");
+
+}
 
 

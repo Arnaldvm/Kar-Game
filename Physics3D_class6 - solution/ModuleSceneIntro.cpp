@@ -32,8 +32,8 @@ bool ModuleSceneIntro::Start()
 	ground.SetPos(0, -1, 0);
 
 	//FL
-	Cube fl1(1, 5, 100);
-	fl1.SetPos(6, 2.5f, 0);
+	Cube fl1(1, 5, 90);
+	fl1.SetPos(6, 2.5f, 5);
 	circuit.add(fl1);
 	Cube fl2(1, 5, 100);
 	fl2.SetPos(-6, 2.5f, 0);
@@ -374,14 +374,41 @@ bool ModuleSceneIntro::Start()
 	circuit.add(s59);
 
 
-
 	// Curve 6
+	Cube c61(1, 5, 10);
+	c61.SetPos(57.5f, 2.5f, -114.5f);
+	c61.SetRotation(30, vec3(0, 1, 0));
+	circuit.add(c61);
+	Cube c62(1, 5, 10);
+	c62.SetPos(51, 2.5f, -121);
+	c62.SetRotation(60, vec3(0, 1, 0));
+	circuit.add(c62);
+	Cube c63(1, 5, 10);
+	c63.SetPos(42.5f, 2.5f, -121);
+	c63.SetRotation(-60, vec3(0, 1, 0));
+	circuit.add(c63);
+	Cube c64(1, 5, 12);
+	c64.SetPos(34.5f, 2.5f, -114.5f);
+	c64.SetRotation(-40, vec3(0, 1, 0));
+	circuit.add(c64);
+
 
 	// Straight 6
+	Cube s61(1, 5, 60);
+	s61.SetPos(30.5f, 2.5f, -80);
+	circuit.add(s61);
 
 	// Curve 7
 
 	// Straight 7
+	Cube s71(1, 5, 36);
+	s71.SetPos(12.5f, 2.5f, -50);
+	s71.SetRotation(-90, vec3(0, 1, 0));
+	circuit.add(s71);
+	Cube s72(1, 5, 36);
+	s72.SetPos(24.5f, 2.5f, -39.5f);
+	s72.SetRotation(-90, vec3(0, 1, 0));
+	circuit.add(s72);
 
 	// Curve 8
 
@@ -393,11 +420,20 @@ bool ModuleSceneIntro::Start()
 		item = item->next;
 	}
 
+	Cube fl(12, 2, 1);
+	fl.SetPos(0, 0, 0);
 
-	/*sensor = App->physics->AddBody(, 0.0f);
-	sensor->SetAsSensor(false);
-	sensor->collision_listeners.add(this);
-	*/
+	flsensor = App->physics->AddBody(fl, 0.0f);
+	flsensor->SetAsSensor(true);
+	flsensor->collision_listeners.add(this);
+	Cube mid(20, 2, 1);
+	mid.SetPos(-7.45f, 0, 146);
+	mid.SetRotation(-90, vec3(0, 1, 0));
+	midsensor = App->physics->AddBody(mid, 0.0f);
+	midsensor->SetAsSensor(true);
+	midsensor->collision_listeners.add(this);
+
+
 	return ret;
 }
 
@@ -430,5 +466,17 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 {
 	LOG("Hit!");
 	App->audio->PlayFx(fx_hit);
+	if (body1->IsSensor() == true || body2->IsSensor() == true){
+		if (body1 == flsensor || body2 == flsensor){
+			if (App->player->check == true){
+				App->player->lap++;
+				App->player->check = false;
+			}
+		}
+		if (body1 == midsensor || body2 == midsensor)
+			App->player->check = true;
+
+	}
+
 }
 
