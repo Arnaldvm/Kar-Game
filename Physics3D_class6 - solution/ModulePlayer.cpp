@@ -20,6 +20,7 @@ bool ModulePlayer::Start()
 
 	VehicleInfo car;
 	fx_breaks = App->audio->LoadFx("Game/audio/breaks.wav");
+	best_time = 0;
 
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(2, 0.25f, 2);
@@ -101,6 +102,7 @@ bool ModulePlayer::Start()
 	vehicle = App->physics->AddVehicle(car);
 	vehicle->SetPos(0, 1, 10);
 
+	timer.Start();
 
 	return true;
 }
@@ -166,11 +168,19 @@ update_status ModulePlayer::Update(float dt) {
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
 
+	if (lap > 2){
+		timer.Stop();
+		best_time = timer.Read();
+	}
 
 	vehicle->Render();
 
+	uint best_time_s = (best_time / 1000) % 60;
+	uint best_time_min = (best_time / 1000) / 60;
+	uint sec = (timer.Read() / 1000) % 60;
+	uint min = (timer.Read() / 1000) / 60;
 	char title[80];
-	sprintf_s(title, "%.1f Km/h | Laps: %d", vehicle->GetKmh(), lap);
+	sprintf_s(title, "%.1f Km/h | Laps: %d | Best: %d:%d | Current: %d:%d", vehicle->GetKmh(), lap, best_time_min, best_time_s, min, sec);
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
