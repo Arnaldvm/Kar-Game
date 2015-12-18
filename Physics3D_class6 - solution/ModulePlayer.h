@@ -26,9 +26,13 @@ public:
 	float acceleration;
 	float brake;
 	uint fx_breaks;
+	uint final_lap_fx;
+	uint win_fx;
+	uint horn_fx;
 	void Respawn();
 	uint lap = 0;
 	uint best_time;
+	uint time_to_beat;
 	Timer timer;
 	bool check = false;
 };

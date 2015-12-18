@@ -16,11 +16,9 @@ bool ModuleSceneIntro::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
-	App->renderer3D->Enable();
-	App->camera->Enable();
-	App->physics->Enable();
-	App->audio->PlayMusic("Game/audio/soundtrack.wav", 0.0f);
-	fx_hit = App->audio->LoadFx("Game/audio/hit.wav");
+
+	App->audio->PlayMusic("audio/soundtrack.wav", 0.0f);
+	fx_hit = App->audio->LoadFx("audio/hit.wav");
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
 	App->camera->LookAt(vec3(0, 0, 0));
 
@@ -462,49 +460,53 @@ bool ModuleSceneIntro::Start()
 
 	Cube s58(1, 5, 100);
 	s58.color = Light_blue;
-	s58.SetPos(60.25f, 2.5f, -60);
+	s58.SetPos(64.25f, 2.5f, -60);
+	s58.SetRotation(-5,vec3(0, 1, 0));
 	circuit.add(s58);
 	Cube s59(1, 5, 100);
 	s59.color = Light_blue;
-	s59.SetPos(42.5, 2.5f, -60);
+	s59.SetPos(42.5, 2.5f, -55);
 	circuit.add(s59);
 
 
 	// Curve 6
 	Cube c61(1, 5, 10);
 	c61.color = Light_blue;
-	c61.SetPos(57.5f, 2.5f, -114.5f);
-	c61.SetRotation(30, vec3(0, 1, 0));
+	c61.SetPos(65.25f, 2.5f, -113.5f);
+	c61.SetRotation(40, vec3(0, 1, 0));
 	circuit.add(c61);
-	Cube c62(1, 5, 10);
+	Cube c62(1, 5, 15);
 	c62.color = Light_blue;
-	c62.SetPos(51, 2.5f, -121);
-	c62.SetRotation(60, vec3(0, 1, 0));
+	c62.SetPos(59, 2.5f, -120);
+	c62.SetRotation(45, vec3(0, 1, 0));
 	circuit.add(c62);
 	Cube c63(1, 5, 10);
 	c63.color = Light_blue;
-	c63.SetPos(42.5f, 2.5f, -121);
-	c63.SetRotation(-60, vec3(0, 1, 0));
+	c63.SetPos(48.5f, 2.5f, -124.5f);
+	c63.SetRotation(90, vec3(0, 1, 0));
 	circuit.add(c63);
-	Cube c64(1, 5, 12);
+	Cube c64(1, 5, 10);
 	c64.color = Light_blue;
-	c64.SetPos(34.5f, 2.5f, -114.5f);
-	c64.SetRotation(-40, vec3(0, 1, 0));
+	c64.SetPos(39.5f, 2.5f, -122);
+	c64.SetRotation(-60, vec3(0, 1, 0));
 	circuit.add(c64);
+	Cube c65(1, 5, 13);
+	c65.color = Light_blue;
+	c65.SetPos(32.25f, 2.5f, -114.5f);
+	c65.SetRotation(-30, vec3(0, 1, 0));
+	circuit.add(c65);
 
 
 	// Straight 6
 	Cube s61(1, 5, 60);
 	s61.color = Light_blue;
-	s61.SetPos(30.5f, 2.5f, -80);
+	s61.SetPos(29, 2.5f, -80);
 	circuit.add(s61);
 
-	// Curve 7
-
 	// Straight 7
-	Cube s71(1, 5, 36);
+	Cube s71(1, 5, 35);
 	s71.color = Light_blue;
-	s71.SetPos(12.5f, 2.5f, -50);
+	s71.SetPos(12, 2.5f, -50);
 	s71.SetRotation(-90, vec3(0, 1, 0));
 	circuit.add(s71);
 	Cube s72(1, 5, 36);
@@ -513,9 +515,6 @@ bool ModuleSceneIntro::Start()
 	s72.SetRotation(-90, vec3(0, 1, 0));
 	circuit.add(s72);
 
-	// Curve 8
-
-	// Curve 9
 
 	p2List_item<Cube>* item = circuit.getFirst();
 	while (item != NULL) {
@@ -579,7 +578,5 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			App->player->check = true;
 
 	}
-	else if (body1->IsSensor() == true && body2->IsSensor() == false)
-		App->audio->PlayFx(fx_hit);
 }
 

@@ -19,7 +19,10 @@ bool ModulePlayer::Start()
 	LOG("Loading player");
 
 	VehicleInfo car;
-	fx_breaks = App->audio->LoadFx("Game/audio/breaks.wav");
+	fx_breaks = App->audio->LoadFx("audio/breaks.wav");
+	final_lap_fx = App->audio->LoadFx("audio/finallap.wav");
+	win_fx = App->audio->LoadFx("audio/firsplace.wav");
+	horn_fx = App->audio->LoadFx("audio/horn.wav");
 	best_time = 0;
 
 	// Car properties ----------------------------------------
@@ -118,7 +121,7 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt) {
 
-	float speed_cam = 0.09f;
+	/*float speed_cam = 0.09f;
 	vec3 p = vehicle->getPos();
 	btVector3 vehicle_vector = vehicle->vehicle->getForwardVector();
 	vec3 f(vehicle_vector.getX(), vehicle_vector.getY(), vehicle_vector.getZ());
@@ -129,7 +132,7 @@ update_status ModulePlayer::Update(float dt) {
 	vec3 reference(p.x, p.y, p.z);
 
 	App->camera->Look(App->camera->Position + (speed_cam * speed_camera), reference);
-	
+	*/
 	turn = acceleration = brake = 0.0f;
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -162,6 +165,9 @@ update_status ModulePlayer::Update(float dt) {
 	if (App->input->GetKey(SDL_SCANCODE_R) == KEY_DOWN){
 		Respawn();
 	}
+	if (App->input->GetKey(SDL_SCANCODE_E) == KEY_DOWN){
+		App->audio->PlayFx(horn_fx);
+	}
 
 
 	vehicle->ApplyEngineForce(acceleration);
@@ -187,10 +193,16 @@ update_status ModulePlayer::Update(float dt) {
 }
 
 void ModulePlayer::Respawn(){
+	
 	vec3 position = vehicle->getPos();
-	vehicle->SetTransform(NULL);
-	vehicle->SetPos(position.x, 2, position.z);
-	LOG("REspawn");
+	Cube c;
+	c.SetPos(position.x, position.y, position.y);
+	if (check == true){
+		c.SetRotation(180, vec3(0, 1, 0));
+	}
+	vehicle->SetTransform(c.transform.M);
+	vehicle->SetPos(position.x, position.y+2, position.z);
+	LOG("Respawn");
 
 }
 
