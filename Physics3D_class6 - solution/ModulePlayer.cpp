@@ -100,7 +100,7 @@ bool ModulePlayer::Start()
 
 
 	vehicle = App->physics->AddVehicle(car);
-	vehicle->SetPos(0, 1, 10);
+	vehicle->SetPos(0, 1, -5);
 
 	timer.Start();
 

@@ -158,12 +158,11 @@ void PhysVehicle3D::Render()
 	wheelbasechassis.transform.M[14] += offset10.getZ();
 
 
-	Cylinder wheelchassis(0.5f, 0.2f);
-	wheelchassis.SetRotation(90, (0, 1, 0));
+	Cube wheelchassis(info.chassis_size.x - 1.0f, info.chassis_size.y -0.1f, info.chassis_size.z - 1.0f);
 	wheelchassis.color = Black;
 	vehicle->getChassisWorldTransform().getOpenGLMatrix(&wheelchassis.transform);
 	btQuaternion q11 = vehicle->getChassisWorldTransform().getRotation();
-	btVector3 offset11(info.chassis_offset.x, info.chassis_offset.y + 1.3f, info.chassis_offset.z + 1.8f);
+	btVector3 offset11(info.chassis_offset.x, info.chassis_offset.y + 0.9f, info.chassis_offset.z + 1.3f);
 	offset11 = offset11.rotate(q11.getAxis(), q11.getAngle());
 
 	wheelchassis.transform.M[12] += offset11.getX();

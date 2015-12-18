@@ -340,6 +340,16 @@ PhysVehicle3D* ModulePhysics3D::AddVehicle(const VehicleInfo& info)
 
 	comShape->addChildShape(trans6, colShape6);
 
+	//wheelchassis
+	btCollisionShape* colShape7 = new btBoxShape(btVector3(info.chassis_size.x - 1.5f, info.chassis_size.y - 0.1f, info.chassis_size.z - 1.6f));
+	shapes.add(colShape7);
+
+	btTransform trans7;
+	trans7.setIdentity();
+	trans7.setOrigin(btVector3(info.chassis_offset.x, info.chassis_offset.y + 0.9f, info.chassis_offset.z + 1.3f));
+
+	comShape->addChildShape(trans7, colShape7);
+
 
 	btVector3 localInertia(0, 0, 0);
 	comShape->calculateLocalInertia(info.mass, localInertia);

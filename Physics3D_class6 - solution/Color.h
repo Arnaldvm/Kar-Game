@@ -30,3 +30,6 @@ extern Color Green;
 extern Color Blue;
 extern Color Black;
 extern Color White;
+extern Color Light_blue;
+extern Color Light_green;
+extern Color Greeny;
