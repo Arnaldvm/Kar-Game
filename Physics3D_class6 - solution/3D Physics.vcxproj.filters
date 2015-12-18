@@ -84,21 +84,6 @@
     <ClInclude Include="ModulePlayer.h">
       <Filter>Sources\Modules\Game</Filter>
     </ClInclude>
-    <ClInclude Include="ModuleTextures.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleRender.h">
-      <Filter>Sources\Modules</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleFadeToBlack.h">
-      <Filter>Sources\Modules\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleSceneEnd.h">
-      <Filter>Sources\Modules\Game</Filter>
-    </ClInclude>
-    <ClInclude Include="ModuleSceneTitle.h">
-      <Filter>Sources\Modules\Game</Filter>
-    </ClInclude>
   </ItemGroup>
   <ItemGroup>
     <ClCompile Include="ModuleAudio.cpp">
@@ -153,21 +138,6 @@
       <Filter>Sources\Helpers</Filter>
     </ClCompile>
     <ClCompile Include="ModulePlayer.cpp">
-      <Filter>Sources\Modules\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleTextures.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleRender.cpp">
-      <Filter>Sources\Modules</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleFadeToBlack.cpp">
-      <Filter>Sources\Modules\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleSceneEnd.cpp">
-      <Filter>Sources\Modules\Game</Filter>
-    </ClCompile>
-    <ClCompile Include="ModuleSceneTitle.cpp">
       <Filter>Sources\Modules\Game</Filter>
     </ClCompile>
   </ItemGroup>

@@ -118,7 +118,7 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt) {
 
-	float speed_cam = 0.09f;
+	/*float speed_cam = 0.09f;
 	vec3 p = vehicle->getPos();
 	btVector3 vehicle_vector = vehicle->vehicle->getForwardVector();
 	vec3 f(vehicle_vector.getX(), vehicle_vector.getY(), vehicle_vector.getZ());
@@ -129,7 +129,7 @@ update_status ModulePlayer::Update(float dt) {
 	vec3 reference(p.x, p.y, p.z);
 
 	App->camera->Look(App->camera->Position + (speed_cam * speed_camera), reference);
-	
+	*/
 	turn = acceleration = brake = 0.0f;
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)

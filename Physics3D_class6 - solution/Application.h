@@ -7,13 +7,9 @@
 #include "ModuleWindow.h"
 #include "ModuleInput.h"
 #include "ModuleAudio.h"
-#include "ModuleTextures.h"
-#include "ModuleFadeToBlack.h"
 #include "ModuleSceneIntro.h"
-#include "ModuleSceneEnd.h"
-#include "ModuleSceneTitle.h"
 #include "ModuleRenderer3D.h"
-#include "ModuleRender.h"
+
 #include "ModuleCamera3D.h"
 #include "ModulePhysics3D.h"
 #include "ModulePlayer.h"
@@ -25,15 +21,10 @@ public:
 	ModuleInput* input;
 	ModuleAudio* audio;
 	ModuleSceneIntro* scene_intro;
-	ModuleTextures* texture;
-	ModuleRender* renderer;
 	ModuleRenderer3D* renderer3D;
 	ModuleCamera3D* camera;
-	ModuleFadeToBlack* fade;
 	ModulePhysics3D* physics;
 	ModulePlayer* player;
-	ModuleSceneEnd* end;
-	ModuleSceneTitle* title;
 
 private:
 

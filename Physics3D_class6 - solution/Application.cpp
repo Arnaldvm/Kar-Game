@@ -5,16 +5,12 @@ Application::Application()
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
 	audio = new ModuleAudio(this, true);
-	texture = new ModuleTextures(this);
-	title = new ModuleSceneTitle(this);
-	scene_intro = new ModuleSceneIntro(this,false);
-	end = new ModuleSceneEnd(this, false);
-	renderer3D = new ModuleRenderer3D(this, false);
-	renderer = new ModuleRender(this);
-	camera = new ModuleCamera3D(this, false);
-	physics = new ModulePhysics3D(this, false);
+	scene_intro = new ModuleSceneIntro(this);
+	renderer3D = new ModuleRenderer3D(this);
+	camera = new ModuleCamera3D(this);
+	physics = new ModulePhysics3D(this);
 	player = new ModulePlayer(this);
-	fade = new ModuleFadeToBlack(this, false);
+
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -25,19 +21,14 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
-	AddModule(texture);
 	AddModule(physics);
 	
 	// Scenes
-	AddModule(title);
 	AddModule(scene_intro);
-	AddModule(end);
 	AddModule(player);
 
 	// Renderer last!
 	AddModule(renderer3D);
-	AddModule(renderer);
-	AddModule(fade);
 }
 
 Application::~Application()
