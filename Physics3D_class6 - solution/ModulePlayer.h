@@ -30,9 +30,11 @@ public:
 	uint win_fx;
 	uint horn_fx;
 	void Respawn();
-	uint lap = 0;
-	uint best_time;
+	uint lap = 1;
+	uint lap_time;
 	uint time_to_beat;
+	uint current_lap = 0;
 	Timer timer;
-	bool check = false;
+	bool check = true;
+	bool done = true;
 };

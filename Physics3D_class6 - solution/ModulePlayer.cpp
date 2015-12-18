@@ -21,9 +21,10 @@ bool ModulePlayer::Start()
 	VehicleInfo car;
 	fx_breaks = App->audio->LoadFx("audio/breaks.wav");
 	final_lap_fx = App->audio->LoadFx("audio/finallap.wav");
-	win_fx = App->audio->LoadFx("audio/firsplace.wav");
+	win_fx = App->audio->LoadFx("audio/firstplace.wav");
 	horn_fx = App->audio->LoadFx("audio/horn.wav");
-	best_time = 0;
+	lap_time = 0;
+	time_to_beat = 210000;
 
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(2, 0.25f, 2);
@@ -121,7 +122,7 @@ bool ModulePlayer::CleanUp()
 // Update: draw background
 update_status ModulePlayer::Update(float dt) {
 
-	/*float speed_cam = 0.09f;
+	float speed_cam = 0.09f;
 	vec3 p = vehicle->getPos();
 	btVector3 vehicle_vector = vehicle->vehicle->getForwardVector();
 	vec3 f(vehicle_vector.getX(), vehicle_vector.getY(), vehicle_vector.getZ());
@@ -132,7 +133,7 @@ update_status ModulePlayer::Update(float dt) {
 	vec3 reference(p.x, p.y, p.z);
 
 	App->camera->Look(App->camera->Position + (speed_cam * speed_camera), reference);
-	*/
+	
 	turn = acceleration = brake = 0.0f;
 
 	if(App->input->GetKey(SDL_SCANCODE_UP) == KEY_REPEAT)
@@ -174,19 +175,31 @@ update_status ModulePlayer::Update(float dt) {
 	vehicle->Turn(turn);
 	vehicle->Brake(brake);
 
-	if (lap > 2){
-		timer.Stop();
-		best_time = timer.Read();
+	if (lap > 3){
+		if (timer.Read() < time_to_beat && done == true){
+			//App->audio->PlayFx(win_fx); //Commented cause the sound is not as it should be, corrupted file maybe? :S
+			timer.Start();
+			done = false;
+		}
+		else {
+			timer.Start();
+			done = false;
+		}
+		timer.Start();
+		lap = 0;
+		vehicle->SetPos(0, 1, -10);
+		
 	}
-
 	vehicle->Render();
 
-	uint best_time_s = (best_time / 1000) % 60;
-	uint best_time_min = (best_time / 1000) / 60;
+	uint lap_time_s = (lap_time / 1000) % 60;
+	uint lap_time_min = (lap_time / 1000) / 60;
 	uint sec = (timer.Read() / 1000) % 60;
 	uint min = (timer.Read() / 1000) / 60;
+	uint aim_s = (time_to_beat / 1000) % 60;
+	uint aim_m = (time_to_beat / 1000) / 60;
 	char title[80];
-	sprintf_s(title, "%.1f Km/h | Laps: %d | Best: %d:%d | Current: %d:%d", vehicle->GetKmh(), lap, best_time_min, best_time_s, min, sec);
+	sprintf_s(title, "%.1f Km/h | Time To Beat: %d:%d Laps: %d /3 | Last Lap: %d:%d | Current: %d:%d", vehicle->GetKmh(), aim_m, aim_s, lap, lap_time_min, lap_time_s, min, sec);
 	App->window->SetTitle(title);
 
 	return UPDATE_CONTINUE;
@@ -197,6 +210,7 @@ void ModulePlayer::Respawn(){
 	vec3 position = vehicle->getPos();
 	Cube c;
 	c.SetPos(position.x, position.y, position.y);
+	//Should/Could be improved, its very basic cause it is rarely needed
 	if (check == true){
 		c.SetRotation(180, vec3(0, 1, 0));
 	}

@@ -355,6 +355,12 @@ bool ModuleSceneIntro::Start()
 	c47.SetPos(-57.25, 2.5f, 137);
 	c47.SetRotation(-150, vec3(0, 1, 0));
 	circuit.add(c47);
+	//INVISIBLE
+	Cube c4i(1, 30, 30);
+	c4i.SetPos(-57.25f, 15, 137);
+	c4i.SetRotation(-150, vec3(0, 1, 0));
+	App->physics->AddBody(c4i, 0.0f);
+
 	Cube c48(1, 5, 10);
 	c48.color = Light_blue;
 	c48.SetPos(-61, 2.5f, 128);
@@ -572,11 +578,12 @@ void ModuleSceneIntro::OnCollision(PhysBody3D* body1, PhysBody3D* body2)
 			if (App->player->check == true){
 				App->player->lap++;
 				App->player->check = false;
+				App->player->lap_time = App->player->timer.Read() - App->player->current_lap;
+				App->player->current_lap = App->player->timer.Read();
 			}
 		}
 		if (body1 == midsensor || body2 == midsensor)
 			App->player->check = true;
-
 	}
 }
 
