@@ -5,11 +5,16 @@ Application::Application()
 	window = new ModuleWindow(this);
 	input = new ModuleInput(this);
 	audio = new ModuleAudio(this, true);
-	scene_intro = new ModuleSceneIntro(this);
-	renderer3D = new ModuleRenderer3D(this);
-	camera = new ModuleCamera3D(this);
-	physics = new ModulePhysics3D(this);
+	texture = new ModuleTextures(this);
+	title = new ModuleSceneTitle(this);
+	scene_intro = new ModuleSceneIntro(this,false);
+	end = new ModuleSceneEnd(this, false);
+	renderer3D = new ModuleRenderer3D(this, false);
+	renderer = new ModuleRender(this);
+	camera = new ModuleCamera3D(this, false);
+	physics = new ModulePhysics3D(this, false);
 	player = new ModulePlayer(this);
+	fade = new ModuleFadeToBlack(this, false);
 
 	// The order of calls is very important!
 	// Modules will Init() Start() and Update in this order
@@ -20,14 +25,19 @@ Application::Application()
 	AddModule(camera);
 	AddModule(input);
 	AddModule(audio);
+	AddModule(texture);
 	AddModule(physics);
 	
 	// Scenes
+	AddModule(title);
 	AddModule(scene_intro);
+	AddModule(end);
 	AddModule(player);
 
 	// Renderer last!
 	AddModule(renderer3D);
+	AddModule(renderer);
+	AddModule(fade);
 }
 
 Application::~Application()
@@ -58,9 +68,10 @@ bool Application::Init()
 	LOG("Application Start --------------");
 	item = list_modules.getFirst();
 
-	while(item != NULL && ret == true)
+	while (item != NULL && ret == true)
 	{
-		ret = item->data->Start();
+		if (item->data->IsEnabled())
+			ret = item->data->Start();
 		item = item->next;
 	}
 	
@@ -88,25 +99,28 @@ update_status Application::Update()
 	
 	p2List_item<Module*>* item = list_modules.getFirst();
 	
-	while(item != NULL && ret == UPDATE_CONTINUE)
+	while (item != NULL && ret == UPDATE_CONTINUE)
 	{
-		ret = item->data->PreUpdate(dt);
+		if (item->data->IsEnabled())
+			ret = item->data->PreUpdate(dt);
 		item = item->next;
 	}
 
 	item = list_modules.getFirst();
 
-	while(item != NULL && ret == UPDATE_CONTINUE)
+	while (item != NULL && ret == UPDATE_CONTINUE)
 	{
-		ret = item->data->Update(dt);
+		if (item->data->IsEnabled())
+			ret = item->data->Update(dt);
 		item = item->next;
 	}
 
 	item = list_modules.getFirst();
 
-	while(item != NULL && ret == UPDATE_CONTINUE)
+	while (item != NULL && ret == UPDATE_CONTINUE)
 	{
-		ret = item->data->PostUpdate(dt);
+		if (item->data->IsEnabled())
+			ret = item->data->PostUpdate(dt);
 		item = item->next;
 	}
 

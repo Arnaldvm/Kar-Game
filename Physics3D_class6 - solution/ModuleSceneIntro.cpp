@@ -16,7 +16,9 @@ bool ModuleSceneIntro::Start()
 {
 	LOG("Loading Intro assets");
 	bool ret = true;
-
+	App->renderer3D->Enable();
+	App->camera->Enable();
+	App->physics->Enable();
 	App->audio->PlayMusic("Game/audio/soundtrack.wav", 0.0f);
 	fx_hit = App->audio->LoadFx("Game/audio/hit.wav");
 	App->camera->Move(vec3(1.0f, 1.0f, 0.0f));
