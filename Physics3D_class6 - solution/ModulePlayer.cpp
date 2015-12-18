@@ -24,7 +24,7 @@ bool ModulePlayer::Start()
 	win_fx = App->audio->LoadFx("audio/firstplace.wav");
 	horn_fx = App->audio->LoadFx("audio/horn.wav");
 	lap_time = 0;
-	time_to_beat = 210000;
+	time_to_beat = 190000;
 
 	// Car properties ----------------------------------------
 	car.chassis_size.Set(2, 0.25f, 2);
@@ -170,11 +170,6 @@ update_status ModulePlayer::Update(float dt) {
 		App->audio->PlayFx(horn_fx);
 	}
 
-
-	vehicle->ApplyEngineForce(acceleration);
-	vehicle->Turn(turn);
-	vehicle->Brake(brake);
-
 	if (lap > 3){
 		if (timer.Read() < time_to_beat && done == true){
 			//App->audio->PlayFx(win_fx); //Commented cause the sound is not as it should be, corrupted file maybe? :S
@@ -187,9 +182,16 @@ update_status ModulePlayer::Update(float dt) {
 		}
 		timer.Start();
 		lap = 0;
-		vehicle->SetPos(0, 1, -10);
+		vehicle->SetPos(0, 1, -40);
+		Respawn();
+		turn = acceleration = 0.0f;
+		brake = BRAKE_POWER;
+		vehicle->Brake(brake);
 		
 	}
+	vehicle->ApplyEngineForce(acceleration);
+	vehicle->Turn(turn);
+	vehicle->Brake(brake);
 	vehicle->Render();
 
 	uint lap_time_s = (lap_time / 1000) % 60;

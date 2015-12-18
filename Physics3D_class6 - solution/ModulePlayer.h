@@ -35,6 +35,6 @@ public:
 	uint time_to_beat;
 	uint current_lap = 0;
 	Timer timer;
-	bool check = true;
+	bool check = false;
 	bool done = true;
 };
